@@ -3,16 +3,15 @@
 import Image from 'next/image'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
+import { formatedCurrency } from '@/utils/formatedCurrency'
 
 interface List {
-  products: [
-    {
-      id: string
-      name: string
-      amount: number
-      imageUrl: string
-    },
-  ]
+  products: {
+    id: string
+    name: string
+    amount: number
+    imageUrl: string
+  }[]
 }
 
 export default function ProductList({ products }: List) {
@@ -39,8 +38,10 @@ export default function ProductList({ products }: List) {
             className="object-cover"
           />
           <footer className="absolute bottom-1 left-1 right-1 rounded-md flex items-center justify-between bg-[rgba(0,0,0,0.6)] p-8 opacity-0 translate-y-[110%] transition-all ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-            <strong className="text-lg">Camiseta X</strong>
-            <span className="text-xl font-bold text-green-300">R$ 79,90</span>
+            <strong className="text-lg">{product.name}</strong>
+            <span className="text-xl font-bold text-green-300">
+              {formatedCurrency(product.amount)}
+            </span>
           </footer>
         </a>
       ))}
