@@ -1,11 +1,9 @@
-import { stripe } from '@/lib/stripe'
-import ProductList from './components/ProductList'
 import Stripe from 'stripe'
+import { getProducts } from '@/utils/getProducts'
+import ProductList from './components/ProductList'
 
 export default async function Home() {
-  const response = await stripe.products.list({
-    expand: ['data.default_price'],
-  })
+  const response = await getProducts()
 
   const products = response.data.map((product) => {
     const amount = product.default_price as Stripe.Price
