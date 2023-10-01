@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import { formatedCurrency } from '@/utils/formatedCurrency'
+import Product from './Product'
 
 interface List {
   products: {
@@ -25,25 +26,19 @@ export default function ProductList({ products }: List) {
   return (
     <div ref={sliderRef} className="w-full h-full keen-slider">
       {products.map((product) => (
-        <a
+        <Link
+          prefetch={false}
           key={product.id}
-          href="#"
+          href={`/product/${product.id}`}
           className="bg-gradient-to-b from-[#1EA483] from-0% to-[#7465D4] to-100% rounded-lg cursor-pointer relative flex items-center justify-center group overflow-hidden keen-slider__slide"
         >
-          <Image
-            src={product.imageUrl}
-            width={520}
-            height={480}
-            alt=""
-            className="object-cover"
+          <Product
+            id={product.id}
+            amount={product.amount}
+            imageUrl={product.imageUrl}
+            name={product.name}
           />
-          <footer className="absolute bottom-1 left-1 right-1 rounded-md flex items-center justify-between bg-[rgba(0,0,0,0.6)] p-8 opacity-0 translate-y-[110%] transition-all ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-            <strong className="text-lg">{product.name}</strong>
-            <span className="text-xl font-bold text-green-300">
-              {formatedCurrency(product.amount)}
-            </span>
-          </footer>
-        </a>
+        </Link>
       ))}
     </div>
   )
