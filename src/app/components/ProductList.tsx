@@ -10,7 +10,7 @@ interface List {
   products: {
     id: string
     name: string
-    amount: number
+    amount: string
     imageUrl: string
   }[]
 }

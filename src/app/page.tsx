@@ -1,6 +1,7 @@
 import Stripe from 'stripe'
 import { getProducts } from '@/utils/getProducts'
 import ProductList from './components/ProductList'
+import { formatedCurrency } from '@/utils/formatedCurrency'
 
 export default async function Home() {
   const response = await getProducts()
@@ -11,7 +12,9 @@ export default async function Home() {
     return {
       id: product.id,
       name: product.name,
-      amount: amount.unit_amount ? amount.unit_amount / 100 : 0,
+      amount: formatedCurrency(
+        amount.unit_amount ? amount.unit_amount / 100 : 0,
+      ),
       imageUrl: product.images[0],
     }
   })
